@@ -1,0 +1,19 @@
+[Unit]
+Description=turn server
+After=network.target
+
+[Service]
+Type=simple
+PIDFile=/var/run/turns.pid
+WorkingDirectory=/
+ExecStart=/usr/local/bin/turns -c /etc/turns/turns.json
+ExecStop=/usr/bin/killall turns
+KillMode=process
+Restart=on-failure
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=turns
+
+[Install]
+WantedBy=multi-user.target
